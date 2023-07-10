@@ -3,15 +3,7 @@ import React from 'react'
 
 class CartItem extends React.Component {
 
-    constructor() {
-        super(); //if
-        this.state = {
-            price: 999,
-            title: 'phone',
-            qty: 1,
-            image: ''
-        }
-    }
+    
 
     increaseQty = () => {
         // setState mehode 1
@@ -41,7 +33,7 @@ class CartItem extends React.Component {
 
     render() {
 
-        const { price, title, qty } = this.state; //object destructureing
+        const { price, title, qty } = this.props.product; //object destructureing
 
         return (
             <div className='cart-item'>
