@@ -1,6 +1,10 @@
 import React from 'react';
 import Cart from './Cart';
 import Navbar from './Navbar';
+import db from './index';
+import { collection, query, getDocs } from "firebase/firestore";
+
+
 
 class App extends React.Component {
   constructor() {
@@ -65,6 +69,19 @@ class App extends React.Component {
     })
   }
 
+  componentDidMount() {
+    let fetchData = async () => {
+      const q = query(collection(db,"products"));
+
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+      });
+    }
+    fetchData();
+  }
+
   cartCount = () => {
     const { products } = this.state;
     let count = 0
@@ -75,11 +92,11 @@ class App extends React.Component {
     return count;
   }
 
-  cartTotal = () =>{
-    const {products} = this.state;
+  cartTotal = () => {
+    const { products } = this.state;
     let total = 0;
-    products.map((item)=>{
-      return total = total + item.qty * item.price ;
+    products.map((item) => {
+      return total = total + item.qty * item.price;
     });
     return total;
   }
@@ -97,7 +114,7 @@ class App extends React.Component {
           decreaseQty={this.handelDecQty}
           deleteItem={this.handelDelete}
         />
-        <div>Total: {this.cartTotal()}</div>
+        <div style={{ fontSize: 30, marginLeft: 600 }}>Total: {this.cartTotal()}</div>
       </div>
     );
   }
