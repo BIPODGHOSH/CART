@@ -4,6 +4,7 @@ import React from 'react'
 const CartItem = (props) => {
 
     const { price, title, qty, image } = props.products; //object destructureing
+    
     const { products, increaseQty, decreaseQty, deleteItem } = props
 
     return (
